@@ -1,20 +1,40 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
+import { useFonts, Inter_900Black } from '@expo-google-fonts/inter';
+
+//Screens
+import Navigation from './navigation';
+import HelpScreen from './screens/HelpScreen';
+import AdoptScreen from './screens/AdoptScreen';
+import DonateScreen from './screens/DonateScreen';
+import SearchScreen from './screens/SearchScreen';
+
+
+//Navigation
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+const Stack = createNativeStackNavigator();
 
 export default function App() {
+  let [fontsLoaded] = useFonts({
+    Inter_900Black,
+  });
+
+  if (!fontsLoaded) {
+    return null;
+  }
   return (
-    <View style={styles.container}>
-      <Text>StraySahaya</Text>
-      <StatusBar style="auto" />
-    </View>
+
+      <NavigationContainer>
+        <Stack.Navigator screenOptions={{headerShown: false}}>
+          <Stack.Screen name="Nav" component={Navigation} />
+          <Stack.Screen name="Help" component={HelpScreen} />
+          <Stack.Screen name="Adopt" component={AdoptScreen} />
+          <Stack.Screen name="Donate" component={DonateScreen} />
+          <Stack.Screen name="Search" component={SearchScreen} />
+        </Stack.Navigator>
+      </NavigationContainer>
+     
+    
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
