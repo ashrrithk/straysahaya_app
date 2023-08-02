@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "462598724504",
+    "project_id": "straysahaya",
+    "storage_bucket": "straysahaya.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:462598724504:android:e3645123764869dfe529ed",
+        "android_client_info": {
+          "package_name": "org.straysahaya.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "462598724504-krki15h8qdgo4em3d6oumbadlhjbmf59.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "org.straysahaya.app",
+            "certificate_hash": "9a95585a4d52da35ab5640656c308e9fd5278beb"
+          }
+        },
+        {
+          "client_id": "462598724504-2nfo3t0b2aqgcvep3f65icc9pda8ea8v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCTtFN_nFZSJqYw8sshaUHBnBbdvbhkDOA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "462598724504-2nfo3t0b2aqgcvep3f65icc9pda8ea8v.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "462598724504-lsu2geijpc46p824tj5s31lg711gfijj.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "org.straysahaya.app"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
