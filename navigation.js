@@ -44,7 +44,7 @@ export default function Navigation() {
                 return <Feather name={iconName} size={size} color={color}  />;
                 // return <FontAwesome5 name={iconName} size={size} color={color} />;
             },
-            tabBarStyle: { paddingBottom: 25, paddingTop: 10, height: 80, backgroundColor: '#ffffff', borderTopWidth: 0, elevation: 0},
+            tabBarStyle: { paddingBottom: 25, paddingTop: 10, height: 80, backgroundColor: '#ffffff',borderColor:'gray', borderTopWidth: 0.5, elevation: 5},
             tabBarActiveTintColor: '#000000',
             
             
@@ -56,7 +56,7 @@ export default function Navigation() {
         })}
         >
       <Tab.Screen name="Home" component={HomeScreen} />
-      <Tab.Screen name="Options" options={{presentation: 'modal'}} component={OptionsScreen} />
+      {/* <Tab.Screen name="Options" options={{presentation: 'modal'}} component={OptionsScreen} /> */}
       <Tab.Screen name="Profile" component={ProfileScreen} />
         </Tab.Navigator>
     );

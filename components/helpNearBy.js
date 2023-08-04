@@ -5,7 +5,7 @@ import NgoCard from './ngoCard';
 
 export default function HelpNearBy() {
   return (
-    <View className="mt-7">
+    <View className="mt-3">
     <ScrollView
     horizontal={false}
     showsHorizontalScrollIndicator={false}
