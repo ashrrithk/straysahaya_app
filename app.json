@@ -18,13 +18,20 @@
     "ios": {
       "supportsTablet": true,
       "googleServicesFile": "./GoogleService-Info.plist",
-      "bundleIdentifier": "org.straysahaya.app"
+      "bundleIdentifier": "org.straysahaya.app",
+      "infoPlist": {
+        "NSLocationWhenInUseUsageDescription": "This app requires access to your location."
+      }
     },
     "android": {
       "googleServicesFile": "./google-services.json",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "backgroundColor": "#ffffff",
+        "permissions": [
+          "ACCESS_COARSE_LOCATION",
+          "ACCESS_FINE_LOCATION"
+        ]
       },
       "package": "org.straysahaya.app"
     },
@@ -35,6 +42,14 @@
       "eas": {
         "projectId": "80ae5d7b-782f-466b-925c-eeb4aef13f68"
       }
-    }
+    },
+    "plugins": [
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "Allow $(PRODUCT_NAME) to use your location."
+        }
+      ]
+    ]
   }
 }

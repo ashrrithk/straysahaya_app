@@ -2,18 +2,22 @@ import { View, Text, Image, TouchableOpacity } from 'react-native'
 import React from 'react'
 import * as Icon from 'react-native-feather'
 import * as Linking from 'expo-linking'
+import { Divider } from "@react-native-material/core";
+
 
 export default function NgoCard(props) {
     const { item, index } = props;
   return (
     <View key={index}>
-    <View className="flex-row mb-10">
+      <Divider style={{ marginBottom: 20, marginTop:0 }} />
+    <View className="flex-row mb-5">
+      
       <Image source={item.image} style={{width: 64, height: 63, borderRadius: 10}} />
         <View className="flex-col"  style={{width: '83%'}}>
             <Text className="text-black-600 font-semibold text-m ml-3">{item.name}</Text>
             <Text className="text-gray-600 font-medium text-xs mt-1 ml-3">{item.area}</Text>
     <View className="flex-row justify-end">
-        <View className="mr-8">
+        <View className="mr-8 mt-0">
             <TouchableOpacity
             onPress={() => Linking.openURL(`tel:${item.phone1}`)}
             >
@@ -35,7 +39,9 @@ export default function NgoCard(props) {
 
       </View>
       </View>
+      
     </View>
+    
     </View>
   )
 }
