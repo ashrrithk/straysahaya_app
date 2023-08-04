@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
+    image: null,
     name: null,
     location: null,
     phone: null,
@@ -14,6 +15,9 @@ const helpSlice = createSlice({
   name: 'help',
   initialState,
   reducers: {
+    setImage: (state, action) => {
+      state.image = action.payload;
+    },
     setName: (state, action) => {
         state.name = action.payload;
       },
@@ -36,6 +40,6 @@ const helpSlice = createSlice({
   },
 });
 
-export const { setName, setLocation, setPhone, setAnimalType, setCategory, setComments } = helpSlice.actions;
+export const { setImage, setName, setLocation, setPhone, setAnimalType, setCategory, setComments } = helpSlice.actions;
 
 export default helpSlice.reducer;

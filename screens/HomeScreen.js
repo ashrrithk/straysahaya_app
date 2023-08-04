@@ -16,13 +16,13 @@ export default function HomeScreen() {
     <StatusBar barStyle="dark-content" />
     <View className = "flex-row items-center space-x-2 px-4 pb-2">
     <View className = "flex-row items-center space-x-1 border-0 border-l-1 pl-2 pb-3 pt-3 border-gray-300">
-             <Text className = "text-black-600 pt-3 font-semibold text-2xl"><Text className="text-gray-600 font-medium">Hi,</Text> Ashrrith</Text>
+             <Text className = "text-black-600 pt-3 font-semibold text-3xl"><Text className="text-gray-600 text-2xl font-medium">Hi,</Text> Ashrrith</Text>
     </View>
     <TouchableOpacity
     className = "justify-end items-end flex-1 pr-2"
     //TODO: Replace my number with PETA emergency call
      onPress={() => Linking.openURL('tel:+919731417095')} >
-    <Image source={require('../assets/freepik/siren.png')} style={{width: 26, height: 26}} 
+    <Image source={require('../assets/freepik/siren.png')} style={{width: 30, height: 30}} 
    />
     </TouchableOpacity>
     </View>
@@ -49,17 +49,17 @@ export default function HomeScreen() {
       <TouchableWithoutFeedback
       onPress={() => navigation.navigate('Help')}
       >
-        <Image source={require('../assets/freepik/help.png')} style={{width: 97, height: 118, borderRadius: 10}} />
+        <Image source={require('../assets/freepik/help.png')} style={{width: 117, height: 138, borderRadius: 10}} />
       </TouchableWithoutFeedback>
       <TouchableWithoutFeedback
       onPress={() => navigation.navigate('Adopt')}
       >
-        <Image source={require('../assets/freepik/adopt.png')} style={{width: 97, height: 118, borderRadius:10}} />
+        <Image source={require('../assets/freepik/adopt.png')} style={{width: 117, height: 138, borderRadius:10}} />
       </TouchableWithoutFeedback>
       <TouchableWithoutFeedback
       onPress={() => navigation.navigate('Donate')}
       >
-        <Image source={require('../assets/freepik/donate.png')} style={{width: 97, height: 118,borderRadius:10}} />
+        <Image source={require('../assets/freepik/donate.png')} style={{width: 117, height: 138,borderRadius:10}} />
       </TouchableWithoutFeedback>
      </View>
      <View className="pt-7 pl-5">

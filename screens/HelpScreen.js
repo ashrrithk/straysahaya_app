@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, StyleSheet, ScrollView, KeyboardAvoidingView  } from 'react-native'
+import { View, Text,Image, TouchableOpacity, StyleSheet, ScrollView, KeyboardAvoidingView, Platform, Alert  } from 'react-native'
 import { TextInputMask } from 'react-native-masked-text';
 import React,{useState, useEffect} from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
@@ -10,9 +10,12 @@ import { Dropdown } from 'react-native-element-dropdown';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import { themeColors } from '../themes/index';
 import { useDispatch,  useSelector } from 'react-redux';
-import { setName, setLocation, setPhone, setAnimalType, setCategory, setComments } from '../redux/slice/helpSlice';
+import { setName, setLocation, setPhone, setAnimalType, setCategory, setComments, setImage } from '../redux/slice/helpSlice';
 import PostHelpScreen from './PostHelpScreen';
 import * as Location from 'expo-location';
+import * as ImagePicker from 'expo-image-picker';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+
 
 
 //Type of Animal Data
@@ -56,7 +59,8 @@ export default function HelpScreen() {
     const dispatch = useDispatch();
     const [value, setValue] = useState(null);
     const [isFocus, setIsFocus] = useState(false);
-
+    
+    const image = useSelector((state) => state.help.image);
     const name = useSelector((state) => state.help.name);
     const location = useSelector((state) => state.help.location);
     const phone = useSelector((state) => state.help.phone);
@@ -77,8 +81,7 @@ export default function HelpScreen() {
 
 
 //Fetch user's location
-    useEffect(() => {
-      (async () => {
+      const handleUserCurrentLocation = async () => {
         
         let { status } = await Location.requestForegroundPermissionsAsync();
         if (status !== 'granted') {
@@ -100,8 +103,8 @@ export default function HelpScreen() {
       const {name, district, city, region, postalCode } = reverseGeocodedAddress[0];
       dispatch(setLocation(`${name}, ${district}, ${city}, ${region} ${postalCode}`));
     }
-      })(); 
-    }, []);
+      };
+    
 
     
     // // // Extract and format the address details
@@ -126,66 +129,142 @@ export default function HelpScreen() {
     //     longitude: location.coords.longitude,
     //   })
     // }
-
     let userLoc = 'Fetching Location..';
     if (errorMsg) {
       userLoc = errorMsg;
     } else if (location) {
       userLoc = JSON.stringify(location).replace(/^"(.*)"$/, '$1');
     }
+  
+     {/* Image upload */}
+     const pickImage = async () => {
+      let result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Image,
+        allowsEditing: true,
+        aspect: [4, 3],
+        quality: 1,
+      });
+      console.log(result)
 
+      if(!result.canceled){
+        dispatch(setImage(result.assets[0].uri));
+      }
+    };
+    const checkTextInput = () => {
+      //Check for the TextInput
+      if (image === null) {
+        alert('Please choose an image');
+        return;
+      }
+      if (name === null) {
+        alert('Please enter your name');
+        return;
+      }
+      if (location === null) {
+        alert("Please enter animal's location");
+        return;
+      }
 
+      if (phone === null) {
+        alert("Please enter your phone number");
+        return;
+      }
+     
+      if (animalType === null) {
+        alert('Please choose animal type');
+        return;
+      }
+      if (category === null) {
+        alert('Please choose category');
+        return;
+      }
+      dispatch(setName(''));
+      dispatch(setImage(''));
+      dispatch(setLocation(''));
+      dispatch(setPhone(''));
+      dispatch(setAnimalType(''));
+      dispatch(setCategory(''));
+      dispatch(setComments(''));
+      handleSubmit();
+    };
+
+    const handleSubmit = () => {
+      navigation.navigate('PostHelp');
+    };
    
   
 
   return (
     <SafeAreaView style={{backgroundColor: 'white'}} className="h-full">
     <View className="flex-row items-center mt-3">
+
+      
         <TouchableOpacity className="pl-4"
         onPress={() => {navigation.goBack()}}
         >
             <Icons.ArrowLeft height= '25' width= '25' stroke= "black" />
         </TouchableOpacity>
         <View className="flex-grow items-center">
-      <Text className="font-medium text-xl mr-10 ">Help</Text>
+      <Text className="font-medium text-xl mr-10 mb-2 ">Help</Text>
       </View>
       </View>
-      <ScrollView 
-    horizontal={false}
-    showsVerticalScrollIndicator={false}
-    contentContainerStyle={{paddingBottom: 10}}>
-      <View className="flex-col justify-evenly pt-5">
+      <KeyboardAwareScrollView>
+      
+<View className="flex-col justify-evenly pt-5">
+<View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+
+  {/* Image selection */}
+  {image && <Image source={{ uri: image }} style={{ width: 400, height: 250, borderRadius: 10 }} />}
+      <TouchableOpacity className="flex-row items-center justify-center h-16 w-16 mt-5 rounded-full bg-text"
+      onPress={pickImage}
+      >
+      <Icons.Image height= '25' width= '25' stroke= "white" />
+      </TouchableOpacity>
+      
+  </View>
+ 
      
       {/* TODO: Fix label overlapping issue */}
       {/* Name input */}
+      <Text className="ml-5 mt-5 text-md">Name</Text>
       <TextInput 
       variant="outlined" 
-      label="Name" 
       value={name} 
-      style={{ margin: 16}} 
-      color='#000000' 
+      style={{marginLeft: 16, marginRight:16, marginBottom: 10, marginTop:10,}} 
+      color='#000000'
       onChange={(item) => dispatch(setName(item.value))}/>
 
       {/* Location input */}
-      <TextInput 
-      variant="outlined" 
-      label="Address" 
-      value={userLoc}  
-      style={{ margin: 16}} 
+      <Text className="ml-5 text-md">Address</Text>
+      <View className="flex-row">
+      <TextInput
+      variant="outlined"
+      // label="Address"
+      value={location}
+      style={{ marginLeft: 16, marginRight:16, marginBottom: 10,marginTop:10, flex: 1}}
       color='#000000'
       editable={true}
-      onChangeText={(item) => dispatch(setLocation(item.value))} />
-      
+      onChangeText={(item) => dispatch(setLocation(item.value))}
+       />
+       <TouchableOpacity className="mr-3 justify-center"
+       onPress={handleUserCurrentLocation}
+       >
+       <Icons.Navigation height= '25' width= '25' stroke= "black" />
+       </TouchableOpacity>
+       </View>
       {/* Phone input */}
+      <View>
+      <Text className="ml-5 text-md">Phone</Text>
       <TextInput 
       variant="outlined" 
       keyboardType='phone-pad' 
-      label="Phone" 
+      // label="Phone" 
       value={phone}  
-      style={{ margin: 16}} 
+      style={{ marginLeft: 16, marginRight:16, marginBottom: 10,marginTop:10,}} 
       color='#000000' 
       maxLength={10} 
       onChange={(item) => dispatch(setPhone(item.value))} />
+      </View>
       {/* <TextInputMask
           type={'custom'}
           options={{
@@ -200,6 +279,7 @@ export default function HelpScreen() {
     </View>
     {/* TODO: Add image and video upload */}
     <View style={styles.container}>
+    <Text className="ml-1 mb-2 text-md">Animal Type</Text>
         <Dropdown
           style={[styles.dropdown, isFocus && { borderColor: 'black' }]}
           placeholderStyle={styles.placeholderStyle}
@@ -211,13 +291,12 @@ export default function HelpScreen() {
           maxHeight={300}
           labelField="label"
           valueField="value"
-          placeholder={'Animal Type'}
           searchPlaceholder="Search..."
           value={animalType}
           onFocus={() => setIsFocus(true)}
           onBlur={() => setIsFocus(false)}
           onChange={item => {
-            setAnimalType(item.value);
+            dispatch(setAnimalType(item.value));
             setIsFocus(false);
           }}
           // renderLeftIcon={() => (
@@ -230,8 +309,8 @@ export default function HelpScreen() {
           // )}
         />
       </View>
-      <View style={styles.container}>
-
+<View style={styles.container}>
+<Text className="ml-1 mb-2 text-md">Category</Text>
 <Dropdown
   style={[styles.dropdown, isFocus && { borderColor: 'black' }]}
   placeholderStyle={styles.placeholderStyle}
@@ -243,13 +322,13 @@ export default function HelpScreen() {
   maxHeight={300}
   labelField="label"
   valueField="value"
-  placeholder={'Category'}
+  // placeholder={'Category'}
   searchPlaceholder="Search..."
   value={category}
   onFocus={() => setIsFocus(true)}
   onBlur={() => setIsFocus(false)}
   onChange={item => {
-    setCategory(item.value);
+    dispatch(setCategory(item.value));
     setIsFocus(false);
   }}
   // renderLeftIcon={() => (
@@ -262,8 +341,8 @@ export default function HelpScreen() {
   // )}
 />
 </View>
-
 <View>
+<Text className="ml-5 mt-4 text-md">Comments</Text>
   {/* <TextInput
   multiline={true}
   color='#000000'
@@ -275,33 +354,33 @@ export default function HelpScreen() {
   ></TextInput> */}
   <TextInput 
   variant="outlined" 
-  label="Comments" 
   value={comments} 
-  multiline={true} 
-  style={{paddingTop:10, margin: 16, height:150, justifyContent: 'flex-start'}} 
+  style={{marginLeft: 16, marginRight:16, marginBottom: 10,marginTop:10, height:100}} 
   color='#000000' 
+  textAlignVertical='center'
   onChange={(item) => dispatch(setComments(item.value))}
   
   />
-
 </View>
-<KeyboardAvoidingView behavior="padding" keyboardVerticalOffset={100}>
-<View className="items-center">
+<View className="items-center mb-5">
   <TouchableOpacity className="h-14 w-10/12 bg-text rounded-lg items-center justify-center"
-  onPress={() => {navigation.navigate('PostHelp')}}
+  onPress={checkTextInput}
   >
 <Text className="text-white items-center justify-center font-semibold text-lg">Get Help</Text>
   </TouchableOpacity>
 </View>
-</KeyboardAvoidingView>
-</ScrollView>
+
+</KeyboardAwareScrollView>
     </SafeAreaView>
   )
   }
 
   const styles = StyleSheet.create({
     container: {
-      margin: 16,
+      marginLeft: 16,
+      marginRight: 16,
+      marginBottom: 10,
+      marginTop: 10,
     },
     dropdown: {
       height: 50,
@@ -310,6 +389,7 @@ export default function HelpScreen() {
       borderRadius: 5,
       paddingHorizontal: 8,
       backgroundColor: 'white',
+      marginBottom: 10,
     },
     icon: {
       marginRight: 5,
