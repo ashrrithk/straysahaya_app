@@ -14,6 +14,7 @@ import AuthScreen from './screens/AuthScreen';
 import AdoptDetailScreen from './screens/AdoptDetailScreen';
 
 
+
 //Navigation
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';

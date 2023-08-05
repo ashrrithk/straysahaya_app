@@ -19,7 +19,9 @@ import { Ionicons } from '@expo/vector-icons';
 
 
 
+
 //Type of Animal Data
+
 export const animalTypeData = [
   { label: 'Dog', value: 'Dog' },
   { label: 'Cat', value: 'Cat' },
@@ -198,11 +200,11 @@ export default function HelpScreen() {
   return (
     <SafeAreaView style={{backgroundColor: 'white'}} className="h-full">
     <View className="flex-row items-center mt-3">
-      
         <TouchableOpacity className="pl-4"
         onPress={() => {navigation.goBack()}}
         >
             <Icons.ArrowLeft height= '28' width= '28' stroke= "black" />
+
         </TouchableOpacity>
         <View className="flex-grow items-center">
       <Text className="font-medium text-xl mr-10 mb-2 ">Help</Text>
@@ -252,6 +254,7 @@ export default function HelpScreen() {
         <Ionicons name="locate-sharp" size={26} color="black" />
         
        {/* <Icons.Navigation height= '25' width= '25' stroke= "black" /> */}
+
        </TouchableOpacity>
        </View>
       {/* Phone input */}
