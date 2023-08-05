@@ -15,11 +15,14 @@ import PostHelpScreen from './PostHelpScreen';
 import * as Location from 'expo-location';
 import * as ImagePicker from 'expo-image-picker';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import { Ionicons } from '@expo/vector-icons';
+
 
 
 
 //Type of Animal Data
-const animalTypeData = [
+
+export const animalTypeData = [
   { label: 'Dog', value: 'Dog' },
   { label: 'Cat', value: 'Cat' },
   { label: 'Pig', value: 'Pig' },
@@ -38,7 +41,7 @@ const animalTypeData = [
 //Category Data
 const categoryData = [
   { label: 'Rescue', value: 'Rescue' },
-  { label: 'Adoption', value: 'Adoption' },
+  { label: 'Abandoned Pet', value: 'Abandoned Pet' },
   { label: 'Abuse', value: 'Abuse' },
   { label: 'Animal Birth Control', value: 'Animal Birth Control' },
 ];
@@ -197,12 +200,11 @@ export default function HelpScreen() {
   return (
     <SafeAreaView style={{backgroundColor: 'white'}} className="h-full">
     <View className="flex-row items-center mt-3">
-
-      
         <TouchableOpacity className="pl-4"
         onPress={() => {navigation.goBack()}}
         >
-            <Icons.ArrowLeft height= '25' width= '25' stroke= "black" />
+            <Icons.ArrowLeft height= '28' width= '28' stroke= "black" />
+
         </TouchableOpacity>
         <View className="flex-grow items-center">
       <Text className="font-medium text-xl mr-10 mb-2 ">Help</Text>
@@ -249,7 +251,10 @@ export default function HelpScreen() {
        <TouchableOpacity className="mr-3 justify-center"
        onPress={handleUserCurrentLocation}
        >
-       <Icons.Navigation height= '25' width= '25' stroke= "black" />
+        <Ionicons name="locate-sharp" size={26} color="black" />
+        
+       {/* <Icons.Navigation height= '25' width= '25' stroke= "black" /> */}
+
        </TouchableOpacity>
        </View>
       {/* Phone input */}

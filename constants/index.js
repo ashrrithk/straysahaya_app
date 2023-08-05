@@ -78,4 +78,207 @@ export const ngos = [
     },
     ]
 
+export const adoption = [
+    {
+        id: 1,
+        name: 'Jacky',
+        image: require('../assets/freepik/auth_img.jpg'),
+        center: "CUPA Trauma Center",
+        phone: "+919845425678",
+        animalType: "Dog",
+        about:{
+            age: "2 years",
+            gender: "Male",
+            vaccinated: "Vaccinated",
+            breed: "Labrador",
+            color: "Black",
+            neutered: "Neutered",
+            description: "Jacky is a very friendly dog. He is very playful and loves to play with kids. He is very active and loves to go on walks. He is very friendly with other dogs and cats. He is very obedient and is trained."
+        },
+        bannerImg: [
+            {
+                banner: require('../assets/freepik/auth_img.jpg')
+            },
+            {
+                banner: require('../assets/freepik/auth_img.jpg')
+            }
+        ]
+    },
+        {
+            id: 2,
+            name: 'Johny',
+            image: require('../assets/freepik/auth_img.jpg'),
+            center: "CUPA Trauma Center",
+            phone: "+919845425678",
+            animalType: "Cat",
+            about:{
+                age: "2 years",
+                gender: "Female",
+                vaccinated: "Vaccinated",
+                breed: "Egyptian",
+                color: "Black",
+                neutered: "Sprayed",
+                description: "Jacky is a very friendly dog. He is very playful and loves to play with kids. He is very active and loves to go on walks. He is very friendly with other dogs and cats. He is very obedient and is trained."
+            },
+            bannerImg: [
+                {
+                    banner: require('../assets/freepik/auth_img.jpg')
+                },
+                {
+                    banner: require('../assets/freepik/adopt.png')
+                }
+            ]
+        },
+        {
+            id: 3,
+            name: 'Tommy',
+            image: require('../assets/freepik/auth_img.jpg'),
+            center: "CUPA Trauma Center",
+            phone: "+919845425678",
+            animalType: "Dog",
+            about:{
+                age: "2 years",
+                gender: "Female",
+                vaccinated: "Vaccinated",
+                breed: "Labrador",
+                color: "Black",
+                neutered: "Sprayed",
+                description: "Jacky is a very friendly dog. He is very playful and loves to play with kids. He is very active and loves to go on walks. He is very friendly with other dogs and cats. He is very obedient and is trained."
+            },
+            bannerImg: [
+                {
+                    banner: require('../assets/freepik/auth_img.jpg')
+                },
+                {
+                    banner: require('../assets/freepik/auth_img.jpg')
+                }
+            ]
+        },
+        {
+            id: 4,
+            name: 'Tommy',
+            image: require('../assets/freepik/auth_img.jpg'),
+            center: "CUPA Trauma Center",
+            phone: "+919845425678",
+            animalType: "Dog",
+            about:{
+                age: "2 years",
+                gender: "Female",
+                vaccinated: "Vaccinated",
+                breed: "Labrador",
+                color: "Black",
+                neutered: "Sprayed",
+                description: "Jacky is a very friendly dog. He is very playful and loves to play with kids. He is very active and loves to go on walks. He is very friendly with other dogs and cats. He is very obedient and is trained."
+            },
+            bannerImg: [
+                {
+                    banner: require('../assets/freepik/auth_img.jpg')
+                },
+                {
+                    banner: require('../assets/freepik/auth_img.jpg')
+                }
+            ]
+        },
+        {
+            id: 5,
+            name: 'Tommy',
+            image: require('../assets/freepik/auth_img.jpg'),
+            center: "CUPA Trauma Center",
+            phone: "+919845425678",
+            animalType: "Dog",
+            about:{
+                age: "2 years",
+                gender: "Female",
+                vaccinated: "Vaccinated",
+                breed: "Labrador",
+                color: "Black",
+                neutered: "Sprayed",
+                description: "Jacky is a very friendly dog. He is very playful and loves to play with kids. He is very active and loves to go on walks. He is very friendly with other dogs and cats. He is very obedient and is trained."
+            },
+            bannerImg: [
+                {
+                    banner: require('../assets/freepik/auth_img.jpg')
+                },
+                {
+                    banner: require('../assets/freepik/auth_img.jpg')
+                }
+            ]
+        },
+        {
+            id: 6,
+            name: 'Tommy',
+            image: require('../assets/freepik/auth_img.jpg'),
+            center: "CUPA Trauma Center",
+            phone: "+919845425678",
+            animalType: "Dog",
+            about:{
+                age: "2 years",
+                gender: "Female",
+                vaccinated: "Vaccinated",
+                breed: "Labrador",
+                color: "Black",
+                neutered: "Sprayed",
+                description: "Jacky is a very friendly dog. He is very playful and loves to play with kids. He is very active and loves to go on walks. He is very friendly with other dogs and cats. He is very obedient and is trained."
+            },
+            bannerImg: [
+                {
+                    banner: require('../assets/freepik/auth_img.jpg')
+                },
+                {
+                    banner: require('../assets/freepik/auth_img.jpg')
+                }
+            ]
+        },
+        {
+            id: 7,
+            name: 'Tommy',
+            image: require('../assets/freepik/auth_img.jpg'),
+            center: "CUPA Trauma Center",
+            phone: "+919845425678",
+            animalType: "Dog",
+            about:{
+                age: "2 years",
+                gender: "Female",
+                vaccinated: "Vaccinated",
+                breed: "Labrador",
+                color: "Black",
+                neutered: "Sprayed",
+                description: "Jacky is a very friendly dog. He is very playful and loves to play with kids. He is very active and loves to go on walks. He is very friendly with other dogs and cats. He is very obedient and is trained."
+            },
+            bannerImg: [
+                {
+                    banner: require('../assets/freepik/auth_img.jpg')
+                },
+                {
+                    banner: require('../assets/freepik/auth_img.jpg')
+                }
+            ]
+        },
+        {
+            id: 8,
+            name: 'Tommy',
+            image: require('../assets/freepik/auth_img.jpg'),
+            center: "CUPA Trauma Center",
+            phone: "+919845425678",
+            animalType: "Dog",
+            about:{
+                age: "2 years",
+                gender: "Female",
+                vaccinated: "Vaccinated",
+                breed: "Labrador",
+                color: "Black",
+                neutered: "Sprayed",
+                description: "Jacky is a very friendly dog. He is very playful and loves to play with kids. He is very active and loves to go on walks. He is very friendly with other dogs and cats. He is very obedient and is trained."
+            },
+            bannerImg: [
+                {
+                    banner: require('../assets/freepik/auth_img.jpg')
+                },
+                {
+                    banner: require('../assets/freepik/auth_img.jpg')
+                }
+            ]
+        },
+]
+
 

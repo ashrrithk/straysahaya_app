@@ -11,6 +11,8 @@ import AdoptScreen from './screens/AdoptScreen';
 import DonateScreen from './screens/DonateScreen';
 import SearchScreen from './screens/SearchScreen';
 import AuthScreen from './screens/AuthScreen';
+import AdoptDetailScreen from './screens/AdoptDetailScreen';
+
 
 
 //Navigation
@@ -37,6 +39,7 @@ export default function App() {
           <Stack.Screen name="Home" component={HomeScreen} />
           <Stack.Screen name="Help" component={HelpScreen}  />
           <Stack.Screen name="Adopt" component={AdoptScreen} />
+          <Stack.Screen name="AdoptDetail" component={AdoptDetailScreen} />
           <Stack.Screen name="Donate" component={DonateScreen} />
           <Stack.Screen name="Search" component={SearchScreen} />
           <Stack.Screen name="PostHelp" component={PostHelpScreen} />
