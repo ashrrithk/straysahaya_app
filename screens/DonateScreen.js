@@ -4,8 +4,10 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import DonateCard from '../components/donateCard'
 import { ngos } from '../constants'
 import * as Icons from 'react-native-feather'
+import { useNavigation } from '@react-navigation/native';
 
 export default function DonateScreen() {
+  const navigation = useNavigation();
   return (
     <SafeAreaView style={{backgroundColor:'white'}} className="h-full">
             <View className="flex-row items-center mt-3">
