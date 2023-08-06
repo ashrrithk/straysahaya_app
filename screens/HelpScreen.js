@@ -84,7 +84,7 @@ export default function HelpScreen() {
 
 
 //Fetch user's location
-      const handleUserCurrentLocation = async () => {
+      const fetchUserCurrentLocation = async () => {
         
         let { status } = await Location.requestForegroundPermissionsAsync();
         if (status !== 'granted') {
@@ -226,7 +226,6 @@ export default function HelpScreen() {
   </View>
  
      
-      {/* TODO: Fix label overlapping issue */}
       {/* Name input */}
       <Text className="ml-5 mt-5 text-md">Name</Text>
       <TextInput 
@@ -249,7 +248,7 @@ export default function HelpScreen() {
       onChangeText={(item) => dispatch(setLocation(item.value))}
        />
        <TouchableOpacity className="mr-3 justify-center"
-       onPress={handleUserCurrentLocation}
+       onPress={fetchUserCurrentLocation}
        >
         <Ionicons name="locate-sharp" size={26} color="black" />
         
@@ -282,7 +281,7 @@ export default function HelpScreen() {
           keyboardType="phone-pad"
         /> */}
     </View>
-    {/* TODO: Add image and video upload */}
+
     <View style={styles.container}>
     <Text className="ml-1 mb-2 text-md">Animal Type</Text>
         <Dropdown

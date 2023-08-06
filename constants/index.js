@@ -8,8 +8,11 @@ export const ngos = [
         area: "Hebbal",
         timings: "10:00 AM - 5:00 PM",
         google_maps: "goo.gl/maps/dFgRFPYTAhqXMme88",
+        tag: "Trauma Center",
+        geo_code:{
         latitude: 13.028177433477286,
         longitude: 77.58404729952096,
+        },
         donate: "cupabangalore.org/donate/"
     },
     {
@@ -21,8 +24,10 @@ export const ngos = [
         area: "Yelahanka",
         timings: "11:00 AM - 4:00 PM",
         google_maps: "goo.gl/maps/4R2sRqogYteW4jtN6",
+        geo_code:{
         latitude: 13.110000217864444,
         longitude: 77.63490222414595,
+        },
         donate: "charlies-care.com/help-us/#donate"
     },
     {
@@ -33,8 +38,10 @@ export const ngos = [
         area: "Koramangala",
         timings: "8:30 AM - 8:30 PM",
         google_maps: "goo.gl/maps/pnmqquFgbfcjeBGz7",
+        geo_code:{
         latitude: 12.93925802693477,
         longitude: 77.62595702599431,
+        },
         donate: ""
     },
     {
@@ -46,8 +53,10 @@ export const ngos = [
         area: "Hebbal",
         timings: "9:30 AM - 5:30 PM",
         google_maps: "goo.gl/maps/huHDAEirjb9cBSRV7",
+        geo_code:{
         latitude: 13.027670658000824,
         longitude: 77.5838101826055,
+        },
         donate: "karunaanimalwelfare.org/donate-us/"
     },
     {
@@ -59,8 +68,10 @@ export const ngos = [
         area: "Kadusonnapanahalli",
         timings: "10:00 AM - 1:00 PM",
         google_maps: "goo.gl/maps/Bk3Yjq3APVok9ssg9",
+        geo_code:{
         latitude: 13.104518923518556,
         longitude: 77.66252943888517,
+        },
         donate:""
     },
     {
@@ -72,8 +83,10 @@ export const ngos = [
         area: "Subash Nagar, Kengeri Sattelite Town",
         timings: "11:15 AM - 6:00 PM",
         google_maps: "goo.gl/maps/tN7AhqxECZuTHKuR9",
-        latitude: 12.928743539722548,
-        longitude: 77.48379549286463,
+        geo_code:{
+            latitude: 12.928743539722548,
+            longitude: 77.48379549286463,
+        },
         donate: ""
     },
     ]
