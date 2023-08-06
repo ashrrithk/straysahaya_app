@@ -16,12 +16,11 @@ export default function HomeScreen() {
     <StatusBar barStyle="dark-content" />
     <View className = "flex-row items-center space-x-2 px-4 pb-2">
     <View className = "flex-row items-center space-x-1 border-0 border-l-1 pl-2 pb-3 pt-3 border-gray-300">
-      <Text className = "text-black-600 pt-3 font-semibold text-3xl"><Text className="text-gray-600 text-2xl font-medium">Hi,</Text> Ashrrith</Text>
+             <Text className = "text-black-600 pt-3 font-semibold text-3xl"><Text className="text-gray-600 text-2xl font-medium">Hi,</Text> Ashrrith</Text>
     </View>
     <TouchableOpacity
     className = "justify-end items-end flex-1 pr-2"
-    //TODO: Replace my number with PETA emergency call
-     onPress={() => Linking.openURL('tel:+919731417095')} >
+     onPress={() => Linking.openURL('tel:+919820122602')} >
     <Image source={require('../assets/freepik/siren.png')} style={{width: 30, height: 30}} 
    />
     </TouchableOpacity>
@@ -46,30 +45,21 @@ export default function HomeScreen() {
 
 
      <View className="flex-row justify-evenly pt-5">
-      <View className="flex-col items-center">
       <TouchableWithoutFeedback
       onPress={() => navigation.navigate('Help')}
       >
         <Image source={require('../assets/freepik/help.png')} style={{width: 117, height: 138, borderRadius: 10}} />
       </TouchableWithoutFeedback>
-      <Text className="mt-2 font-medium text-gray-500">Help</Text>
-      </View>
-      <View className="flex-col items-center">
       <TouchableWithoutFeedback
       onPress={() => navigation.navigate('Adopt')}
       >
-        <Image source={require('../assets/freepik/adopt.png')} style={{width: 117, height: 138, borderRadius: 10}} />
+        <Image source={require('../assets/freepik/adopt.png')} style={{width: 117, height: 138, borderRadius:10}} />
       </TouchableWithoutFeedback>
-      <Text className="mt-2 font-medium text-gray-500">Adopt</Text>
-      </View>
-      <View className="flex-col items-center">
       <TouchableWithoutFeedback
       onPress={() => navigation.navigate('Donate')}
       >
-        <Image source={require('../assets/freepik/donate.png')} style={{width: 117, height: 138, borderRadius: 10}} />
+        <Image source={require('../assets/freepik/donate.png')} style={{width: 117, height: 138,borderRadius:10}} />
       </TouchableWithoutFeedback>
-      <Text className="mt-2 font-medium text-gray-500">Donate</Text>
-      </View>
      </View>
      <View className="pt-7 pl-5">
       <Text className="font-medium text-lg text-gray-500">Help near you</Text>

@@ -12,14 +12,18 @@ import DonateScreen from './screens/DonateScreen';
 import SearchScreen from './screens/SearchScreen';
 import AuthScreen from './screens/AuthScreen';
 import AdoptDetailScreen from './screens/AdoptDetailScreen';
+import PostHelpScreen from './screens/PostHelpScreen';
+import HomeScreen from './screens/HomeScreen';
+import AnimalsHelpedScreen from './screens/AnimalsHelpedScreen';
+import YourDetailsScreen from './screens/YourDetailsScreen';
+import AboutUsScreen from './screens/AboutUsScreen';
 
 
 
 //Navigation
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import PostHelpScreen from './screens/PostHelpScreen';
-import HomeScreen from './screens/HomeScreen';
+
 const Stack = createNativeStackNavigator();
 
 export default function App() {
@@ -43,6 +47,12 @@ export default function App() {
           <Stack.Screen name="Donate" component={DonateScreen} />
           <Stack.Screen name="Search" component={SearchScreen} />
           <Stack.Screen name="PostHelp" component={PostHelpScreen} />
+          <Stack.Screen name="AnimalsHelped" component={AnimalsHelpedScreen} />
+          
+
+          {/* Profile */}
+          <Stack.Screen name="YourDetails" options={{presentation: 'modal'}} component={YourDetailsScreen} />
+          <Stack.Screen name="AboutUs" options={{presentation: 'modal'}} component={AboutUsScreen} />
         </Stack.Navigator>
       </NavigationContainer>
 </Provider>
