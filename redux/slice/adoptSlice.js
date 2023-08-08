@@ -8,6 +8,7 @@ const initialState = {
     animalType: null,
     about: null,
     adopt: null,
+    adoptData: [],
 
 };
 
@@ -35,11 +36,14 @@ const adoptSlice = createSlice({
     },
     setAdoption: (state, action) => {
         state.adopt = action.payload;
-      }
+      },
+      setAdoptData: (state, action) => {
+        state.adoptData = action.payload;
+      },
   
   },
 });
 
-export const { setImage, setName, setCenter, setPhone, setAnimalType, setAbout, setAdoption } = adoptSlice.actions;
+export const { setImage, setName, setCenter, setPhone, setAnimalType, setAbout, setAdoption, setAdoptData } = adoptSlice.actions;
 
 export default adoptSlice.reducer;

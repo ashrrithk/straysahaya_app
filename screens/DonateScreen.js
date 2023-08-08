@@ -5,8 +5,10 @@ import DonateCard from '../components/donateCard'
 import { ngos } from '../constants'
 import * as Icons from 'react-native-feather'
 import { useNavigation } from '@react-navigation/native';
+import { useSelector } from 'react-redux';
 
 export default function DonateScreen() {
+  const helpData= useSelector((state) => state.home.helpData);
   const navigation = useNavigation();
   return (
     <SafeAreaView style={{backgroundColor:'white'}} className="h-full">
@@ -29,7 +31,7 @@ export default function DonateScreen() {
        paddingHorizontal: 15
        }}>
        {
-           ngos.map((ngo, index) => {
+           helpData.map((ngo, index) => {
                return (
                     <DonateCard
                       item={ngo}

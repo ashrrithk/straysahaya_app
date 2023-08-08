@@ -88,7 +88,7 @@ export default function AdoptDetailScreen() {
         </View>
     <View className="flex-row rounded-full px-4 py-2 m-2" style={{backgroundColor:'white', borderWidth:0.1, borderColor:'gray'}}>
         <Fontisto name="injection-syringe" size={20} color="purple" />
-        <Text className="text-black font-semibold text-sm ml-2">{item.about.vaccinated}</Text>
+        <Text className="text-black font-semibold text-sm ml-2">{item.about.vaccination}</Text>
     </View>
     <View className="flex-row rounded-full px-4 py-2 m-2" style={{backgroundColor:'white', borderWidth:0.1, borderColor:'gray'}}>
         <FontAwesome5 name="cut" size={20} color="green" />

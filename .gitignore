@@ -24,6 +24,7 @@ yarn-error.log
 
 # Env
 .envrc.local
+.env
 
 # Emacs
 *~

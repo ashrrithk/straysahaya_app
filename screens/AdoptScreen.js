@@ -1,12 +1,29 @@
 import { View, Text, SafeAreaView, TouchableOpacity, ScrollView } from 'react-native'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { adoption } from '../constants'
 import AdoptionCard from '../components/adoptionCard'
 import * as Icons from 'react-native-feather'
 import { useNavigation } from '@react-navigation/native';
+import { getAdoptionsData } from '../api';
+import { setAdoptData } from '../redux/slice/adoptSlice'
+import { useSelector, useDispatch } from 'react-redux';
+
+
+
 
 
 export default function AdoptScreen() {
+
+  const dispatch = useDispatch();
+  const adoptData= useSelector((state) => state.adopt.adoptData);
+
+  useEffect(() => {
+    getAdoptionsData().then(data=>{
+      dispatch(setAdoptData(data));
+      console.log(data)
+    })
+  }, [])
+
   const navigation = useNavigation();
   return (
     <SafeAreaView style={{backgroundColor:'white'}} className="h-full">
@@ -30,7 +47,7 @@ contentContainerStyle={{
   }}>
   <View className="flex-row flex-wrap ">
       {
-           adoption.map((adoption, index) => {
+           adoptData.map((adoption, index) => {
                return (
                 <View className="w-1/2 items-center">
                     <AdoptionCard
