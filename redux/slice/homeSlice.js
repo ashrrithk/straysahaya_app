@@ -3,7 +3,8 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
    distance: null,
    location: null,
-   error: null,
+   errorMsg: null,
+    helpData: [],
 };
 
 const homeSlice = createSlice({
@@ -16,11 +17,14 @@ const homeSlice = createSlice({
       setLocation: (state, action) => {
         state.location = action.payload;
       },
-      setError: (state, action) => {
-        state.error = action.payload;
+      setErrorMsg: (state, action) => {
+        state.errorMsg = action.payload;
+      },
+      setHelpData: (state, action) => {
+        state.helpData = action.payload;
       },
     }});
 
-    export const { setDistance, setLocation, setError} = homeSlice.actions;
+    export const { setDistance, setLocation, setErrorMsg, setHelpData} = homeSlice.actions;
 
     export default homeSlice.reducer;

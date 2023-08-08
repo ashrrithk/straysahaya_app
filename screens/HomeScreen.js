@@ -10,29 +10,30 @@ import HelpNearBy from '../components/helpNearBy'
 import { useDispatch, useSelector } from 'react-redux';
 import { setDistance, setLocation, setError } from '../redux/slice/homeSlice';
 import * as Location from 'expo-location';
-
+import { getHelpData } from '../api'
 
 
 
 export default function HomeScreen() {
   const navigation = useNavigation();
   const location = useSelector((state) => state.home.location);
-  const error = useSelector((state) => state.home.error);
-  const dispatch = useDispatch()
+  const errorMsg = useSelector((state) => state.home.error);
+  const dispatch = useDispatch();
+
 
   useEffect(() => {
     fetchUserCurrentLocation()
+
   }, [])
     const fetchUserCurrentLocation = async () => {
         try{
       let { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== 'granted') {
-        setError('Permission to access location was denied');
+        setErrorMsg('Permission to access location was denied');
         return;
       }
     // Get user's current location
     let curLocation = await Location.getCurrentPositionAsync({});
-    console.log(curLocation)
   
     const reverseGeocodedAddress = await Location.reverseGeocodeAsync({
       longitude: curLocation.coords.longitude,
@@ -46,12 +47,12 @@ export default function HomeScreen() {
     }
   } catch (error) {
     console.log(error);
-    setError('Error obtaining current location');
+    setErrorMsg('Error obtaining current location');
   }
   };
 
   return (
-    <SafeAreaView style={{backgroundColor: '#ffffff'}}>
+    <SafeAreaView style={{backgroundColor: '#ffffff', height:'100%'}}>
     <StatusBar barStyle="dark-content" />
     <View className = "flex-row items-center space-x-2 px-4 pb-2">
     <View  className = "flex-row items-center space-x-1 border-0 border-l-1 pl-2 pb-3 pt-3 border-gray-300">

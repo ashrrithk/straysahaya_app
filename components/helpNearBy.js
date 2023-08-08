@@ -3,8 +3,9 @@ import React, {useState,useEffect} from 'react'
 import { ngos } from '../constants';
 import NgoCard from './ngoCard';
 import * as Location from 'expo-location';
-import { setDistance } from '../redux/slice/homeSlice';
+import { setDistance, setHelpData } from '../redux/slice/homeSlice';
 import { useDispatch, useSelector } from 'react-redux';
+import { getHelpData } from '../api';
 
 export default function HelpNearBy() {
   const [sortedNgos, setSortedNgos] = useState([]);
@@ -13,9 +14,14 @@ export default function HelpNearBy() {
 
   const dispatch = useDispatch()
   const distance = useSelector((state) => state.home.distance);
+  const helpData= useSelector((state) => state.home.helpData);
   
   useEffect(() => {
     fetchUserCurrentLocation()
+    getHelpData().then(data=>{
+     dispatch(setHelpData(data));
+     console.log(data)
+  })
   }, [])
     const fetchUserCurrentLocation = async () => {
         
@@ -26,7 +32,6 @@ export default function HelpNearBy() {
       }
     // Get user's current location
     let curLocation = await Location.getCurrentPositionAsync({});
-    console.log(curLocation)
 
     // const reverseGeocodedAddress = await Location.reverseGeocodeAsync({
     //   longitude: curLocation.coords.longitude,
@@ -40,8 +45,8 @@ export default function HelpNearBy() {
     // }
 
       // Calculate distance from user's location for each NGO
-      const ngosWithDistance = ngos.map(ngo => {
-        const distance = Math.sqrt(Math.pow(curLocation.coords.latitude - ngo.geo_code.latitude, 2) + Math.pow(curLocation.coords.longitude - ngo.geo_code.longitude, 2));
+      const ngosWithDistance = helpData.map(ngo => {
+        const distance = Math.sqrt(Math.pow(curLocation.coords.latitude - ngo.latitude, 2) + Math.pow(curLocation.coords.longitude - ngo.longitude, 2));
         const distanceInKms = (distance / 1000).toFixed(2);
         dispatch(setDistance(distanceInKms))
         return { ...ngo, distance };

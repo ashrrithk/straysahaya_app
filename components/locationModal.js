@@ -23,8 +23,9 @@ const [errorMsg, setErrorMsg] = useState(null);
                   setErrorMsg('Permission to access location was denied');
                   return;
                 }
-          
-                const curLocation = await Location.getCurrentPositionAsync({});
+                const isAndroid = Platform.OS == 'android';
+                const curLocation = await Location.getCurrentPositionAsync({ accuracy: isAndroid ? Location.Accuracy.Low : Location.Accuracy.Lowest, })
+                // const curLocation = await Location.getCurrentPositionAsync({});
                 const reverseGeocodedAddress = await Location.reverseGeocodeAsync({
                   longitude: curLocation.coords.longitude,
                   latitude: curLocation.coords.latitude,
@@ -32,7 +33,7 @@ const [errorMsg, setErrorMsg] = useState(null);
       if (reverseGeocodedAddress.length > 0) {
         const { name } = reverseGeocodedAddress[0];
         dispatch(setLocation(`${name}`));
-        navigation.goBack();
+        navigator.goBack();
       }
     } catch (error) {
       console.log(error);
