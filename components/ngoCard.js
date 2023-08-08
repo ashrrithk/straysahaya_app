@@ -3,10 +3,15 @@ import React from 'react'
 import * as Icon from 'react-native-feather'
 import * as Linking from 'expo-linking'
 import { Divider } from "@react-native-material/core";
+import { useDispatch,useSelector } from 'react-redux';
+import { setDistance } from '../redux/slice/homeSlice';
 
 
 export default function NgoCard(props) {
-    const { item, index } = props;
+  // const dispatch = useDispatch()
+  // const distance = useSelector((state) => state.home.distance);
+    const { item, index, distance } = props;
+   
   return (
     <View key={index}>
       <Divider style={{ marginBottom: 20, marginTop:0 }} />
@@ -15,7 +20,7 @@ export default function NgoCard(props) {
       <Image source={item.image} style={{width: 64, height: 63, borderRadius: 10}} />
         <View className="flex-col"  style={{width: '83%'}}>
             <Text className="text-black-600 font-semibold text-m ml-3">{item.name}</Text>
-            <Text className="text-gray-600 font-medium text-xs mt-1 ml-3">{item.area}</Text>
+            <Text className="text-gray-600 font-medium text-xs mt-1 ml-3 w-2/3 ">{item.area}</Text>
     <View className="flex-row justify-end">
         <View className="mr-8 mt-0">
             <TouchableOpacity

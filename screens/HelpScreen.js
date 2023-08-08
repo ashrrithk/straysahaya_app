@@ -82,6 +82,9 @@ export default function HelpScreen() {
     //   return null;
     // };
 
+    useEffect(() => {
+      fetchUserCurrentLocation()
+    }, [])
 
 //Fetch user's location
       const fetchUserCurrentLocation = async () => {

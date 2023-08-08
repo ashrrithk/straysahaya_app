@@ -21,7 +21,13 @@ onPress={() => {navigation.goBack()}}
 <Text className="font-medium text-xl mr-10 mb-2 ">Adopt</Text>
 </View>
 </View>
-<ScrollView showsVerticalScrollIndicator={false} horizontal={false} showsHorizontalScrollIndicator={false}>
+<ScrollView 
+showsVerticalScrollIndicator={false} 
+horizontal={false} 
+showsHorizontalScrollIndicator={false}
+contentContainerStyle={{
+  paddingHorizontal: 15
+  }}>
   <View className="flex-row flex-wrap ">
       {
            adoption.map((adoption, index) => {
