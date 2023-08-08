@@ -17,14 +17,12 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "googleServicesFile": "./GoogleService-Info.plist",
       "bundleIdentifier": "org.straysahaya.app",
       "infoPlist": {
         "NSLocationWhenInUseUsageDescription": "This app requires access to your location."
       }
     },
     "android": {
-      "googleServicesFile": "./google-services.json",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff",
