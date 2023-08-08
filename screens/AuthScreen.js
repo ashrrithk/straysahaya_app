@@ -13,7 +13,6 @@ import { useNavigation } from '@react-navigation/native';
 // import auth from '@react-native-firebase/auth';
 
 
-
 export default function AuthScreen() {
 
   const [initializing, setInitializing] = useState(true);
@@ -21,11 +20,6 @@ export default function AuthScreen() {
   const navigation = useNavigation();
 
 
-    // Handle user state changes
-    function onAuthStateChanged(user) {
-      setUser(user);
-      if (initializing) setInitializing(false);
-    }
   
 
 
