@@ -46,7 +46,7 @@ export default function App() {
           <Stack.Screen name="Search" component={SearchScreen} />
           <Stack.Screen name="PostHelp" component={PostHelpScreen} />
           <Stack.Screen name="AnimalsHelped" component={AnimalsHelpedScreen} />
-          <Stack.Screen name="LocationModal" options={{presentation: 'modal'}} component={LocationModal} />
+          <Stack.Screen name="LocationModal"  options={{presentation: 'modal'}} component={LocationModal} />
 
           {/* Profile */}
           <Stack.Screen name="YourDetails" options={{presentation: 'modal'}} component={YourDetailsScreen} />

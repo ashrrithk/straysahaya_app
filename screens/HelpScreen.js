@@ -11,11 +11,14 @@ import AntDesign from '@expo/vector-icons/AntDesign';
 import { themeColors } from '../themes/index';
 import { useDispatch,  useSelector } from 'react-redux';
 import { setName, setLocation, setPhone, setAnimalType, setCategory, setComments, setImage } from '../redux/slice/helpSlice';
+import { setHelpData } from '../redux/slice/homeSlice';
 import PostHelpScreen from './PostHelpScreen';
 import * as Location from 'expo-location';
 import * as ImagePicker from 'expo-image-picker';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import { Ionicons } from '@expo/vector-icons';
+import * as Linking from 'expo-linking';
+import { getHelpData } from '../api';
 
 
 
@@ -70,6 +73,8 @@ export default function HelpScreen() {
     const animalType = useSelector((state) => state.help.animalType);
     const category = useSelector((state) => state.help.category);
     const comments = useSelector((state) => state.help.comments);
+
+    const helpData= useSelector((state) => state.home.helpData);
   
     // const renderLabel = () => {
     //   if (value || isFocus) {
@@ -84,7 +89,14 @@ export default function HelpScreen() {
 
     useEffect(() => {
       fetchUserCurrentLocation()
-    }, [])
+      if(helpData.length==0){
+        getHelpData().then(data=>{
+         dispatch(setHelpData(data));
+         console.log(data)
+         
+      })
+    }
+    }, [helpData])
 
 //Fetch user's location
       const fetchUserCurrentLocation = async () => {
@@ -107,7 +119,7 @@ export default function HelpScreen() {
     console.log(reverseGeocodedAddress)
     if (reverseGeocodedAddress.length > 0) {
       const {name, district, city, region, postalCode } = reverseGeocodedAddress[0];
-      dispatch(setLocation(`${name}, ${district}, ${city}, ${region} ${postalCode}`));
+      dispatch(setLocation(`${name}, ${city}, ${region} ${postalCode}`));
     }
       };
     
@@ -184,6 +196,7 @@ export default function HelpScreen() {
         alert('Please choose category');
         return;
       }
+      handleFormSubmit();
       dispatch(setName(''));
       dispatch(setImage(''));
       dispatch(setLocation(''));
@@ -191,11 +204,37 @@ export default function HelpScreen() {
       dispatch(setAnimalType(''));
       dispatch(setCategory(''));
       dispatch(setComments(''));
-      handleSubmit();
     };
+    const handleFormSubmit = () => {
+      // Code to handle form submission
+      const emails = helpData
+      .filter(item => item.category === category)
+      .map(item => item.email);
+        handleSubmit();
+      };
+  //   const emails = helpData
+  // .filter(item => item.category === category)
+  // .map(item => item.email);
 
-    const handleSubmit = () => {
-      navigation.navigate('PostHelp');
+    
+
+    const handleSubmit = async () => {
+
+      const subject = `Help!  ${animalType} - ${category}`;
+      const body = `Hi, 
+      My Name is ${name}. Request your support to help a ${animalType}
+      Please find my details and the location of the animal below.
+      Phone: ${phone} 
+      Address: ${location}
+      Message: ${comments}
+
+      Looking forward to your support.
+      Thank you.
+
+      Sent via StraySahaya App
+      `;
+      const mailtoLink = `mailto:${email}?subject=${subject}&body=${body}`;
+      Linking.openURL(mailtoLink);
     };
    
   
@@ -216,9 +255,9 @@ export default function HelpScreen() {
       <KeyboardAwareScrollView>
       
 <View className="flex-col justify-evenly pt-5">
-<View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+{/* <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
 
-  {/* Image selection */}
+  
   {image && <Image source={{ uri: image }} style={{ width: 400, height: 250, borderRadius: 10 }} />}
       <TouchableOpacity className="flex-row items-center justify-center h-16 w-16 mt-5 rounded-full bg-text"
       onPress={pickImage}
@@ -226,7 +265,7 @@ export default function HelpScreen() {
       <Icons.Image height= '25' width= '25' stroke= "white" />
       </TouchableOpacity>
       
-  </View>
+  </View> */}
  
      
       {/* Name input */}
@@ -236,7 +275,7 @@ export default function HelpScreen() {
       value={name} 
       style={{marginLeft: 16, marginRight:16, marginBottom: 10, marginTop:10,}} 
       color='#000000'
-      onChange={(item) => dispatch(setName(item.value))}/>
+      onChangeText={(item) => dispatch(setName(item))}/>
 
       {/* Location input */}
       <Text className="ml-5 text-md">Address</Text>
@@ -270,7 +309,7 @@ export default function HelpScreen() {
       style={{ marginLeft: 16, marginRight:16, marginBottom: 10,marginTop:10,}} 
       color='#000000' 
       maxLength={10} 
-      onChange={(item) => dispatch(setPhone(item.value))} />
+      onChangeText={(item) => dispatch(setPhone(item))} />
       </View>
       {/* <TextInputMask
           type={'custom'}
@@ -365,7 +404,7 @@ export default function HelpScreen() {
   style={{marginLeft: 16, marginRight:16, marginBottom: 10,marginTop:10, height:100}} 
   color='#000000' 
   textAlignVertical='center'
-  onChange={(item) => dispatch(setComments(item.value))}
+  onChangeText={(item) => dispatch(setComments(item))}
   
   />
 </View>

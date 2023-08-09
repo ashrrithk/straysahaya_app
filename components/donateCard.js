@@ -13,13 +13,14 @@ import { urlFor } from '../sanity';
 export default function DonateCard(props) {
     const { item, index } = props;
     const handleDonatePress = () => {
-        if (item.donate != '') { // Add an if statement to check if item.donate is defined
-          Linking.openURL(`${item.donate}`);
+        if (item.donate) { // Add an if statement to check if item.donate is defined
+          Linking.openURL(`https://${item.donate}`);
         }
       };
   return (
     <View key={index}>
       <Divider style={{ marginBottom: 10, marginTop:10 }} />
+      {(item.donate) ? (
       <TouchableOpacity
      onPress={handleDonatePress}
      >
@@ -29,7 +30,7 @@ export default function DonateCard(props) {
       <Text className="text-black-600 font-semibold text-m ml-3">{item.name}</Text>
       </View>
     </TouchableOpacity>
-        
+      ) : null }
 
     
     </View>

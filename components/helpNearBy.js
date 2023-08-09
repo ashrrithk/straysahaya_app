@@ -18,11 +18,15 @@ export default function HelpNearBy() {
   
   useEffect(() => {
     fetchUserCurrentLocation()
+    if(helpData.length==0){
     getHelpData().then(data=>{
      dispatch(setHelpData(data));
      console.log(data)
+     
   })
-  }, [])
+}
+  }, [helpData])
+  
     const fetchUserCurrentLocation = async () => {
         
       let { status } = await Location.requestForegroundPermissionsAsync();
@@ -31,12 +35,23 @@ export default function HelpNearBy() {
         return;
       }
     // Get user's current location
-    let curLocation = await Location.getCurrentPositionAsync({});
+    
+    function getCurrentLocation() {
+      const timeout = 5000;
+      return new Promise(async (resolve, reject) => {
+        setTimeout(() => { reject(new Error(`Error getting gps location after ${(timeout * 2) / 1000} s`)) }, timeout * 2);
+        setTimeout(async () => { resolve(await Location.getCurrentPositionAsync()) }, timeout);
+        resolve(await Location.getLastKnownPositionAsync());
+      });
+    }
+    let curLocation = await getCurrentLocation();
+    console.log("Current Location")
+    console.log(curLocation)
 
     // const reverseGeocodedAddress = await Location.reverseGeocodeAsync({
     //   longitude: curLocation.coords.longitude,
     //   latitude: curLocation.coords.latitude,
-      
+
     // });
     // console.log(reverseGeocodedAddress)
     // if (reverseGeocodedAddress.length > 0) {
@@ -45,17 +60,28 @@ export default function HelpNearBy() {
     // }
 
       // Calculate distance from user's location for each NGO
-      const ngosWithDistance = helpData.map(ngo => {
+      const helpDistance = helpData.map(ngo => {
         const distance = Math.sqrt(Math.pow(curLocation.coords.latitude - ngo.latitude, 2) + Math.pow(curLocation.coords.longitude - ngo.longitude, 2));
         const distanceInKms = (distance / 1000).toFixed(2);
         dispatch(setDistance(distanceInKms))
+        console.log('Ngo Location')
+        console.log(ngo.latitude)
+        console.log(ngo.longitude)
         return { ...ngo, distance };
+        
       });
+       console.log("Help Distance")
+        console.log(helpDistance)
+
+        console.log('Help Data')
+        console.log(helpData)
 
       // Sort NGOs by distance
-      const sortedNgos = ngosWithDistance.sort((a, b) => a.distance - b.distance);
+      const sortedNgos = helpDistance.sort((a, b) => a.distance - b.distance);
 
       setSortedNgos(sortedNgos);
+      console.log("Sorted NGOs")
+      console.log(sortedNgos)
   }
   // console.log(sortedNgos)
   return (

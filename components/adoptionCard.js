@@ -8,6 +8,9 @@ import { urlFor } from '../sanity'
 export default function AdoptionCard(props) {
   const { item, index } = props;
   const navigation = useNavigation();
+  console.log('Items Spread')
+  console.log({...item});
+
 
   return (
       <View key={index} className="flex-row  rounded-xl m-2">
@@ -18,6 +21,7 @@ export default function AdoptionCard(props) {
             navigation.navigate('AdoptDetail', {...item});
           }}
         >
+       
           
             <View className="bg-gray-200 rounded-xl ">
               <Image source={{
@@ -41,4 +45,5 @@ export default function AdoptionCard(props) {
         {/* Add another TouchableOpacity with the same structure as above */}
       </View>
   );
+  
 }

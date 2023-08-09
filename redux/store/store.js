@@ -3,6 +3,7 @@ import helpSlice from '../slice/helpSlice';
 import adoptSlice from '../slice/adoptSlice';
 import authSlice from '../slice/authSlice';
 import homeSlice from '../slice/homeSlice';
+import emailSlice from '../slice/emailSlice';
 
 
 export const store = configureStore({
@@ -11,5 +12,6 @@ export const store = configureStore({
     adopt: adoptSlice,
     auth: authSlice,
     home: homeSlice,
+    email: emailSlice,
   },
 });

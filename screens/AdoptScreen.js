@@ -52,7 +52,7 @@ contentContainerStyle={{
                 <View className="w-1/2 items-center">
                     <AdoptionCard
                       item={adoption}
-                      key={index}
+                      key={index} 
                       />
                       </View>
                 //    <View key={index} className="flex justify-center items-center mr-6">

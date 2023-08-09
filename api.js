@@ -23,3 +23,9 @@ export const getHelpDataById = id=>{
         *[_type == 'help' && _id == $id]
     `, {id})
 }
+
+export const getAdoptionsDataById = id=>{
+    return sanityQuery(`
+        *[_type == 'adoption' && _id == $id]
+    `, {id})
+}
