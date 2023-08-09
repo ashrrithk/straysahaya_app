@@ -41,7 +41,7 @@ export default function NgoCard(props) {
         </View>
         <View>
             <TouchableOpacity
-            onPress={() => Linking.openURL(`${item.google_map}`)}
+            onPress={() => Linking.openURL(`https://${item.google_map}`)}
             >
                 <Icon.MapPin height="20" width="20" stroke="black" />
             </TouchableOpacity>

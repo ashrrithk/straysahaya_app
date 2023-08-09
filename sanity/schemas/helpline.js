@@ -12,6 +12,11 @@ export default defineType({
       validation: Rule => Rule.required(),
     }),
     defineField({
+      name: 'email',
+      title: 'Email',
+      type: 'email',
+    }),
+    defineField({
       name: 'category',
       title: 'Category',
       type: 'string',
@@ -20,8 +25,8 @@ export default defineType({
               {title: 'Rescue', value: 'rescue'},
               {title: 'Vet', value: 'vet'},
               {title: 'Ambulance', value: 'Ambulance'},
-              {title: 'Not Sprayed', value: 'notsprayed'},
-              {title: 'Animal Birth Control', value: 'abc'},
+              {title: 'Animal Shelter', value: 'Animal Shelter'},
+              {title: 'Animal Birth Control', value: 'Animal Birth Control'},
           ],
       },
       validation: Rule => Rule.required(),
