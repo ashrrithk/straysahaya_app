@@ -1,4 +1,4 @@
-import { View, Text, SafeAreaView, TouchableOpacity, ScrollView } from 'react-native'
+import { View, Text, SafeAreaView, TouchableOpacity, ScrollView, RefreshControl } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { adoption } from '../constants'
 import AdoptionCard from '../components/adoptionCard'
@@ -11,11 +11,11 @@ import { useSelector, useDispatch } from 'react-redux';
 
 
 
-
 export default function AdoptScreen() {
 
   const dispatch = useDispatch();
   const adoptData= useSelector((state) => state.adopt.adoptData);
+  const [refresh, setRefresh] = useState(false);
 
   useEffect(() => {
     getAdoptionsData().then(data=>{
@@ -25,6 +25,19 @@ export default function AdoptScreen() {
   }, [])
 
   const navigation = useNavigation();
+
+  const pullMe = async () => {
+    setRefresh(true)
+    try {
+      await getAdoptionsData().then(data=>{
+        dispatch(setAdoptData(data));
+        console.log(data)
+     })
+    } catch (error) {
+      console.log(error);
+    }
+    setRefresh(false);
+    }
   return (
     <SafeAreaView style={{backgroundColor:'white'}} className="h-full">
       <View className="flex-row items-center mt-3">
@@ -44,12 +57,19 @@ horizontal={false}
 showsHorizontalScrollIndicator={false}
 contentContainerStyle={{
   paddingHorizontal: 15
-  }}>
+  }}
+  refreshControl={
+    <RefreshControl
+      refreshing={refresh}
+      onRefresh={()=>pullMe()}
+    />
+  }
+  >
   <View className="flex-row flex-wrap ">
       {
            adoptData.map((adoption, index) => {
                return (
-                <View className="w-1/2 items-center">
+                <View className="w-1/2 items-center" style={{paddingHorizontal: 5}}>
                     <AdoptionCard
                       item={adoption}
                       key={index} 

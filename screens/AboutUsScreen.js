@@ -3,8 +3,10 @@ import React from 'react'
 import * as Icons from 'react-native-feather'
 import { useNavigation } from '@react-navigation/native'
 
+
 export default function AboutUsScreen() {
   const navigation = useNavigation();
+
   return (
     <SafeAreaView style={{backgroundColor:'white'}} className="h-full">
     <View className="flex-row items-center mt-3">

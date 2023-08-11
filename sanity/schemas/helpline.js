@@ -22,8 +22,8 @@ export default defineType({
       type: 'string',
       options: {
           list: [
-              {title: 'Rescue', value: 'rescue'},
-              {title: 'Vet', value: 'vet'},
+              {title: 'Rescue', value: 'Rescue'},
+              {title: 'Vet', value: 'Vet'},
               {title: 'Ambulance', value: 'Ambulance'},
               {title: 'Animal Shelter', value: 'Animal Shelter'},
               {title: 'Animal Birth Control', value: 'Animal Birth Control'},

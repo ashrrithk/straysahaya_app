@@ -1,4 +1,4 @@
-import { View, Text,TouchableWithoutFeedback, TextInput, ScrollView,Image, TouchableOpacity } from 'react-native'
+import { View, Text,TouchableWithoutFeedback, TextInput, ScrollView,Image, TouchableOpacity, RefreshControl } from 'react-native'
 import React, {useEffect} from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { StatusBar } from 'expo-status-bar'
@@ -8,7 +8,7 @@ import { useNavigation } from '@react-navigation/native';
 import { ngos } from '../constants'
 import HelpNearBy from '../components/helpNearBy'
 import { useDispatch, useSelector } from 'react-redux';
-import { setDistance, setLocation, setError } from '../redux/slice/homeSlice';
+import { setDistance, setLocation, setErrorMsg, setHelpData } from '../redux/slice/homeSlice';
 import * as Location from 'expo-location';
 import { getHelpData } from '../api'
 
@@ -19,29 +19,46 @@ export default function HomeScreen() {
   const location = useSelector((state) => state.home.location);
   const errorMsg = useSelector((state) => state.home.error);
   const dispatch = useDispatch();
+  const [refresh, setRefresh] = React.useState(false);
 
 
   useEffect(() => {
-    fetchUserCurrentLocation()
-
+    fetchUserLastKnownLocation()
   }, [])
+
+        //Fetch user's last known location
+        const fetchUserLastKnownLocation = async () => {
+        
+          let { status } = await Location.requestForegroundPermissionsAsync();
+          if (status !== 'granted') {
+            setErrorMsg('Permission to access location was denied');
+            return;
+          }
+  
+      let lastLocation = await Location.getLastKnownPositionAsync({});
+      console.log(lastLocation)
+  
+      const reverseGeocodedAddress = await Location.reverseGeocodeAsync({
+        longitude: lastLocation.coords.longitude,
+        latitude: lastLocation.coords.latitude,
+        
+      });
+      console.log(reverseGeocodedAddress)
+      if (reverseGeocodedAddress.length > 0) {
+        const {name, district, city, region, postalCode } = reverseGeocodedAddress[0];
+        dispatch(setLocation(`${name}, ${city}`));
+      }
+        };
+
+  // Get user's current location
     const fetchUserCurrentLocation = async () => {
 
       let { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== 'granted') {
-        setErrorMsg('Permission to access location was denied');
+        dispatch(setErrorMsg('Permission to access location was denied'));
         return;
       }
-    // Get user's current location
-    function getCurrentLocation() {
-      const timeout = 5000;
-      return new Promise(async (resolve, reject) => {
-        setTimeout(() => { reject(new Error(`Error getting gps location after ${(timeout * 2) / 1000} s`)) }, timeout * 2);
-        setTimeout(async () => { resolve(await Location.getCurrentPositionAsync()) }, timeout);
-        resolve(await Location.getLastKnownPositionAsync());
-      });
-    }
-    let curLocation = await getCurrentLocation();
+      let curLocation = await Location.getCurrentPositionAsync({});
   
     const reverseGeocodedAddress = await Location.reverseGeocodeAsync({
       longitude: curLocation.coords.longitude,
@@ -67,6 +84,21 @@ export default function HomeScreen() {
   }
   console.log(userLoc)
 
+  //Refresh
+  const pullMe = async () => {
+  setRefresh(true)
+  try {
+    await fetchUserCurrentLocation();
+    await getHelpData().then(data=>{
+      dispatch(setHelpData(data));
+      console.log(data)
+   })
+  } catch (error) {
+    console.log(error);
+  }
+  setRefresh(false);
+  }
+
   return (
     <SafeAreaView style={{backgroundColor: '#ffffff', height:'100%'}}>
     <StatusBar barStyle="dark-content" />
@@ -86,7 +118,14 @@ export default function HomeScreen() {
    <ScrollView 
     horizontal={false}
     showsVerticalScrollIndicator={false}
-    contentContainerStyle={{paddingBottom: 100}}>
+    contentContainerStyle={{paddingBottom: 100}}
+    refreshControl={
+      <RefreshControl
+      refreshing={refresh}
+      onRefresh={() => pullMe()}
+      />
+    }
+    >
     {/* <View className = "flex-row items-center space-x-2 px-4 pb-2">
      <TouchableWithoutFeedback
      onPress={() => navigation.navigate('Search')}

@@ -1,4 +1,4 @@
-import { View, Text,Image, TouchableOpacity, StyleSheet, ScrollView, KeyboardAvoidingView, Platform, Alert  } from 'react-native'
+import { View, Text,Image, TouchableOpacity, StyleSheet, ScrollView, KeyboardAvoidingView, Platform, Alert, RefreshControl  } from 'react-native'
 import { TextInputMask } from 'react-native-masked-text';
 import React,{useState, useEffect} from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
@@ -19,6 +19,7 @@ import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import { Ionicons } from '@expo/vector-icons';
 import * as Linking from 'expo-linking';
 import { getHelpData } from '../api';
+import sanityClient from '../sanity';
 
 
 
@@ -59,7 +60,7 @@ const phoneRegex = /^(\+91[\-\s]?)?[0]?(91)?[789]\d{9}$/;
 export default function HelpScreen() {
 
   const [errorMsg, setErrorMsg] = useState(null);
-
+  const [refresh, setRefresh] = useState(false);
 
     const navigation = useNavigation();
     const dispatch = useDispatch();
@@ -88,7 +89,7 @@ export default function HelpScreen() {
     // };
 
     useEffect(() => {
-      fetchUserCurrentLocation()
+      fetchUserLastKnownLocation()
       if(helpData.length==0){
         getHelpData().then(data=>{
          dispatch(setHelpData(data));
@@ -98,7 +99,7 @@ export default function HelpScreen() {
     }
     }, [helpData])
 
-//Fetch user's location
+//Fetch user's current location
       const fetchUserCurrentLocation = async () => {
         
         let { status } = await Location.requestForegroundPermissionsAsync();
@@ -122,37 +123,52 @@ export default function HelpScreen() {
       dispatch(setLocation(`${name}, ${city}, ${region} ${postalCode}`));
     }
       };
+
+      //Fetch user's last known location
+      const fetchUserLastKnownLocation = async () => {
+        
+        let { status } = await Location.requestForegroundPermissionsAsync();
+        if (status !== 'granted') {
+          setErrorMsg('Permission to access location was denied');
+          return;
+        }
+
+    let lastLocation = await Location.getLastKnownPositionAsync({});
+    console.log(lastLocation)
+
+    const reverseGeocodedAddress = await Location.reverseGeocodeAsync({
+      longitude: lastLocation.coords.longitude,
+      latitude: lastLocation.coords.latitude,
+      
+    });
+    console.log(reverseGeocodedAddress)
+    if (reverseGeocodedAddress.length > 0) {
+      const {name, district, city, region, postalCode } = reverseGeocodedAddress[0];
+      dispatch(setLocation(`${name}, ${city}, ${region} ${postalCode}`));
+    }
+      };
     
 
-    
-    // // // Extract and format the address details
-  
-  
 
-    // useEffect(() => {
-    //   if (location) {
-    //     (async () => {
-    //       const reverseGeocodedAddress = await Location.reverseGeocodeAsync({
-    //         latitude: location.coords.latitude,
-    //         longitude: location.coords.longitude,
-    //       });
-    //       dispatch(setLocation(reverseGeocodedAddress.name));
-    //     })();
-    //   }
-    // }, [location]);
-  
-    // const reverseGeocode = async () => {
-    //   const reverseGeocodedAddress = await Location.reverseGeocodeAsync({
-    //     latitude: location.coords.latitude,
-    //     longitude: location.coords.longitude,
-    //   })
-    // }
     let userLoc = 'Fetching Location..';
     if (errorMsg) {
       userLoc = errorMsg;
     } else if (location) {
       userLoc = JSON.stringify(location).replace(/^"(.*)"$/, '$1');
     }
+
+    const pullMe = async () => {
+      setRefresh(true)
+      dispatch(setName(''));
+      dispatch(setImage(''));
+      dispatch(setLocation(''));
+      dispatch(setPhone(''));
+      dispatch(setAnimalType(''));
+      dispatch(setCategory(''));
+      dispatch(setComments(''));
+      await fetchUserLastKnownLocation();
+      setRefresh(false);
+      }
   
      {/* Image upload */}
      const pickImage = async () => {
@@ -170,10 +186,10 @@ export default function HelpScreen() {
     };
     const checkTextInput = () => {
       //Check for the TextInput
-      if (image === null) {
-        alert('Please choose an image');
-        return;
-      }
+      // if (image === null) {
+      //   alert('Please choose an image');
+      //   return;
+      // }
       if (name === null) {
         alert('Please enter your name');
         return;
@@ -196,7 +212,7 @@ export default function HelpScreen() {
         alert('Please choose category');
         return;
       }
-      handleFormSubmit();
+      handleSubmit();
       dispatch(setName(''));
       dispatch(setImage(''));
       dispatch(setLocation(''));
@@ -205,13 +221,13 @@ export default function HelpScreen() {
       dispatch(setCategory(''));
       dispatch(setComments(''));
     };
-    const handleFormSubmit = () => {
-      // Code to handle form submission
-      const emails = helpData
-      .filter(item => item.category === category)
-      .map(item => item.email);
-        handleSubmit();
-      };
+    // const handleFormSubmit = () => {
+    //   // Code to handle form submission
+    //   const emails = helpData
+    //   .filter(item => item.category === category)
+    //   .map(item => item.email);
+    //     handleSubmit();
+    //   };
   //   const emails = helpData
   // .filter(item => item.category === category)
   // .map(item => item.email);
@@ -219,12 +235,24 @@ export default function HelpScreen() {
     
 
     const handleSubmit = async () => {
-
+      try {
+      let query = '';
+    if (category === 'Rescue' || category === 'Abandoned Pet' || category === 'Abuse') {
+      query = `*[_type == "help" && category == "Rescue"]{email}`;
+    } else {
+      query = `*[_type == "help" && category == "${category}"]{email}`;
+    }
+      const result = await sanityClient.fetch(query);
+      const emails = result.map((item) => item.email).join(',');
+      console.log("Emails")
+      console.log(emails)
       const subject = `Help!  ${animalType} - ${category}`;
-      const body = `Hi, 
+      const body = `Hi,
       My Name is ${name}. Request your support to help a ${animalType}
       Please find my details and the location of the animal below.
-      Phone: ${phone} 
+
+      ---------------------------------
+      Phone: ${phone}
       Address: ${location}
       Message: ${comments}
 
@@ -233,11 +261,13 @@ export default function HelpScreen() {
 
       Sent via StraySahaya App
       `;
-      const mailtoLink = `mailto:${email}?subject=${subject}&body=${body}`;
+      const mailtoLink = `mailto:${emails}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
       Linking.openURL(mailtoLink);
+      }catch (error) {
+        console.error(error);
+      }
     };
-   
-  
+
 
   return (
     <SafeAreaView style={{backgroundColor: 'white'}} className="h-full">
@@ -252,7 +282,14 @@ export default function HelpScreen() {
       <Text className="font-medium text-xl mr-10 mb-2 ">Help</Text>
       </View>
       </View>
-      <KeyboardAwareScrollView>
+      <KeyboardAwareScrollView
+      refreshControl={
+        <RefreshControl
+       refreshing={refresh}
+        onRefresh={()=>pullMe()} 
+        />
+      }
+      >
       
 <View className="flex-col justify-evenly pt-5">
 {/* <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>

@@ -10,6 +10,9 @@ import * as Icons from 'react-native-feather'
 import {FlatListSlider} from 'react-native-flatlist-slider';
 import { FontAwesome5, Ionicons, Fontisto, MaterialCommunityIcons } from '@expo/vector-icons';
 import { urlFor } from '../sanity';
+import {setDetailPageName} from '../redux/slice/adoptSlice';
+import sanityClient from '../sanity';
+import * as Linking from 'expo-linking';
 
 
 export default function AdoptDetailScreen() {
@@ -27,8 +30,25 @@ export default function AdoptDetailScreen() {
   console.log(item?._id);
 
   const flastListSlider = () => {
-
   }
+ 
+  const handleEnquiry = async () => {
+    try{
+        let query = `*[_type == "help" && name == "${item.help[0].name}"]{email}`;
+        const result = await sanityClient.fetch(query);
+        console.log("Result")
+        console.log(result[0]);
+        if (result[0]?.email?.length > 0 && result[0].email[0]) {
+          // If email is available, navigate to the AdoptRequestForm screen with the name and helpCenter parameters
+          navigation.navigate('AdoptRequestForm', { name: item?.name, helpCenter: item?.help[0]?.name });
+        } else {
+          // If email is not available, open the phone app with the help center's phone number
+          Linking.openURL(`tel:${item?.help[0]?.phone}`);
+        }
+    } catch (error) {
+    console.log(error);
+  }
+}
   return (
     <SafeAreaView style={{backgroundColor: 'white'}} className='h-full'>
          <View className="flex-row items-center mt-3">
@@ -110,6 +130,7 @@ export default function AdoptDetailScreen() {
    </View>
    <View className="items-center mb-5 mt-5">
   <TouchableOpacity className="h-14 w-11/12 bg-text rounded-lg items-center justify-center"
+  onPress={handleEnquiry}
   >
 <Text className="text-white items-center justify-center font-semibold text-lg">Enquire</Text>
   </TouchableOpacity>

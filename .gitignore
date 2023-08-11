@@ -163,3 +163,6 @@ docs/pages/versions/*/react-native/*.diff
 
 # Config files
 *.plist
+
+#Sanity
+/sanity/.env

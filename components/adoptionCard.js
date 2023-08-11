@@ -35,7 +35,7 @@ export default function AdoptionCard(props) {
                 </View>
                 <View className="flex-row items-center mt-3">
                 <Icon.MapPin  height="12" width="12" stroke="black" />
-                <Text className="font-regular text-xs ml-2 break-all">{item.help[0].name}</Text>
+                <Text className="font-regular text-xs ml-2 break-all" numberOfLines={1} ellipsizeMode="tail">{item.help[0].name}</Text>
                 </View>
               </View>
           </View>
