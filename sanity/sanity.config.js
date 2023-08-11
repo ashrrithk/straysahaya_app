@@ -7,7 +7,7 @@ export default defineConfig({
   name: 'default',
   title: 'StraySahaya',
 
-  projectId: `${process.env.SANITY_STUDIO_API_PROJECT_ID}`,
+  projectId: process.env.SANITY_PROJECT_ID,
   dataset: 'production',
 
   plugins: [deskTool(), visionTool()],

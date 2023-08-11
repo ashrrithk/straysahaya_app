@@ -9,6 +9,9 @@ const initialState = {
     about: null,
     adopt: null,
     adoptData: [],
+    enquirerName: null,
+    enquirerPhone: null,
+    enquirerComments: null,
 
 };
 
@@ -40,10 +43,19 @@ const adoptSlice = createSlice({
       setAdoptData: (state, action) => {
         state.adoptData = action.payload;
       },
+      setEnquirerName: (state, action) => {
+        state.enquirerName = action.payload;
+      },
+      setEnquirerPhone: (state, action) => {
+        state.enquirerPhone = action.payload;
+      },
+      setEnquirerComments: (state, action) => {
+        state.enquirerComments = action.payload;
+      },
   
   },
 });
 
-export const { setImage, setName, setCenter, setPhone, setAnimalType, setAbout, setAdoption, setAdoptData } = adoptSlice.actions;
+export const { setImage, setName, setCenter, setPhone, setAnimalType, setAbout, setAdoption, setAdoptData, setEnquirerName, setEnquirerPhone, setEnquirerComments } = adoptSlice.actions;
 
 export default adoptSlice.reducer;

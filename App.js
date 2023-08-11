@@ -27,6 +27,7 @@ import AboutUsScreen from './screens/AboutUsScreen';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import LocationModal from './components/locationModal';
+import AdoptionRequestScreen from './screens/AdoptionRequestScreen';
 
 
 const Stack = createNativeStackNavigator();
@@ -47,6 +48,7 @@ export default function App() {
           <Stack.Screen name="PostHelp" component={PostHelpScreen} />
           <Stack.Screen name="AnimalsHelped" component={AnimalsHelpedScreen} />
           <Stack.Screen name="LocationModal"  options={{presentation: 'modal'}} component={LocationModal} />
+          <Stack.Screen name="AdoptRequestForm" component={AdoptionRequestScreen} />
 
           {/* Profile */}
           <Stack.Screen name="YourDetails" options={{presentation: 'modal'}} component={YourDetailsScreen} />
