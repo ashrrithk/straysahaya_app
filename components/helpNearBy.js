@@ -1,7 +1,7 @@
 import { View, Text, ScrollView, Image, RefreshControl } from 'react-native'
 import React, {useState,useEffect} from 'react'
 import { ngos } from '../constants';
-import NgoCard from './ngoCard';
+import HelpCard from './helpCard';
 import * as Location from 'expo-location';
 import { setDistance, setHelpData } from '../redux/slice/homeSlice';
 import { useDispatch, useSelector } from 'react-redux';
@@ -96,10 +96,9 @@ export default function HelpNearBy() {
        {
            sortedNgos.map((ngo, index) => {
                return (
-                    <NgoCard
+                    <HelpCard
                       item={ngo}
                       key={index}
-                      distance={distance}
                       />
                 //    <View key={index} className="flex justify-center items-center mr-6">
                       

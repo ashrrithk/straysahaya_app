@@ -14,7 +14,7 @@ export default function AboutUsScreen() {
 <TouchableOpacity className="pl-4"
 onPress={() => {navigation.goBack()}}
 >
-  <Icons.ArrowLeft height= '28' width= '28' stroke= "black" />
+  <Icons.X height= '28' width= '28' stroke= "black" />
 </TouchableOpacity>
 <View className="flex-grow items-center">
 <Text className="font-medium text-xl mr-10 mb-2 ">About Us</Text>

@@ -19,8 +19,9 @@ export default function DonateCard(props) {
       };
   return (
     <View key={index}>
-      <Divider style={{ marginBottom: 10, marginTop:10 }} />
       {(item.donate) ? (
+        <>
+      <Divider style={{ marginBottom: 10, marginTop:10 }} />
       <TouchableOpacity
      onPress={handleDonatePress}
      >
@@ -30,6 +31,7 @@ export default function DonateCard(props) {
       <Text className="text-black-600 font-semibold text-m ml-3">{item.name}</Text>
       </View>
     </TouchableOpacity>
+    </>
       ) : null }
 
     

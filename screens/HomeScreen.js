@@ -8,9 +8,9 @@ import { useNavigation } from '@react-navigation/native';
 import { ngos } from '../constants'
 import HelpNearBy from '../components/helpNearBy'
 import { useDispatch, useSelector } from 'react-redux';
-import { setDistance, setLocation, setErrorMsg, setHelpData } from '../redux/slice/homeSlice';
+import { setDistance, setLocation, setErrorMsg, setHelpData, setGeoLoc } from '../redux/slice/homeSlice';
 import * as Location from 'expo-location';
-import { getHelpData } from '../api'
+import { getHelpData } from '../api';
 
 
 
@@ -18,6 +18,7 @@ export default function HomeScreen() {
   const navigation = useNavigation();
   const location = useSelector((state) => state.home.location);
   const errorMsg = useSelector((state) => state.home.error);
+  const geoLoc  = useSelector((state) => state.home.geoLoc);
   const dispatch = useDispatch();
   const [refresh, setRefresh] = React.useState(false);
 
@@ -36,6 +37,7 @@ export default function HomeScreen() {
           }
   
       let lastLocation = await Location.getLastKnownPositionAsync({});
+      dispatch(setGeoLoc(lastLocation));
       console.log(lastLocation)
   
       const reverseGeocodedAddress = await Location.reverseGeocodeAsync({
@@ -59,6 +61,8 @@ export default function HomeScreen() {
         return;
       }
       let curLocation = await Location.getCurrentPositionAsync({});
+      dispatch(setGeoLoc(curLocation));
+      console.log(geoLoc)
   
     const reverseGeocodedAddress = await Location.reverseGeocodeAsync({
       longitude: curLocation.coords.longitude,

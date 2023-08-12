@@ -20,6 +20,7 @@ import HomeScreen from './screens/HomeScreen';
 import AnimalsHelpedScreen from './screens/AnimalsHelpedScreen';
 import YourDetailsScreen from './screens/YourDetailsScreen';
 import AboutUsScreen from './screens/AboutUsScreen';
+import HelpDetailScreen from './screens/HelpDetailScreen';
 
 
 
@@ -28,6 +29,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import LocationModal from './components/locationModal';
 import AdoptionRequestScreen from './screens/AdoptionRequestScreen';
+import AddHelpScreen from './screens/AddHelpScreen';
 
 
 const Stack = createNativeStackNavigator();
@@ -38,9 +40,10 @@ export default function App() {
       <NavigationContainer>
         <Stack.Navigator screenOptions={{headerShown: false}}>
         {/* <Stack.Screen name="Auth" component={AuthScreen} /> */}
+         <Stack.Screen name="Nav" component={Navigation} />
         <Stack.Screen name="Home" component={HomeScreen} />
-        {/* <Stack.Screen name="Nav" component={Navigation} /> */}
           <Stack.Screen name="Help" component={HelpScreen}  />
+          <Stack.Screen name="HelpDetail" component={HelpDetailScreen} />
           <Stack.Screen name="Adopt" component={AdoptScreen} />
           <Stack.Screen name="AdoptDetail" component={AdoptDetailScreen} />
           <Stack.Screen name="Donate" component={DonateScreen} />
@@ -49,6 +52,7 @@ export default function App() {
           <Stack.Screen name="AnimalsHelped" component={AnimalsHelpedScreen} />
           <Stack.Screen name="LocationModal"  options={{presentation: 'modal'}} component={LocationModal} />
           <Stack.Screen name="AdoptRequestForm" component={AdoptionRequestScreen} />
+          <Stack.Screen name="AddHelpScreen" component={AddHelpScreen} />
 
           {/* Profile */}
           <Stack.Screen name="YourDetails" options={{presentation: 'modal'}} component={YourDetailsScreen} />

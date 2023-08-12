@@ -16,7 +16,7 @@ import { Modal } from 'react-native-web';
 //Screen Names
 const home = "Home";
 const sos = "Options";
-const profile = "Profile";
+const profile = "Settings";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -37,7 +37,7 @@ export default function Navigation() {
                     iconName = 'plus-square'
                     // return <Feather name={iconName} size={size} color={color}  />;
                 } else if (route.name === profile) {
-                    iconName = 'user'
+                    iconName = 'settings'
                     // return <Feather name={iconName} size={size} color={color}  />;
                 }
 
@@ -57,7 +57,7 @@ export default function Navigation() {
         >
       <Tab.Screen name="Home" component={HomeScreen} />
       {/* <Tab.Screen name="Options" options={{presentation: 'modal'}} component={OptionsScreen} /> */}
-      <Tab.Screen name="Profile" component={ProfileScreen} />
+      <Tab.Screen name="Settings" component={ProfileScreen} />
         </Tab.Navigator>
     );
 }

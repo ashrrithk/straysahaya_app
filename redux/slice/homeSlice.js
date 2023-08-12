@@ -5,6 +5,7 @@ const initialState = {
    location: null,
    errorMsg: null,
     helpData: [],
+    geoLoc: null,
 };
 
 const homeSlice = createSlice({
@@ -23,8 +24,11 @@ const homeSlice = createSlice({
       setHelpData: (state, action) => {
         state.helpData = action.payload;
       },
+      setGeoLoc: (state, action) => {
+        state.geoLoc = action.payload;
+      },
     }});
 
-    export const { setDistance, setLocation, setErrorMsg, setHelpData} = homeSlice.actions;
+    export const { setDistance, setLocation, setErrorMsg, setHelpData, setGeoLoc} = homeSlice.actions;
 
     export default homeSlice.reducer;
