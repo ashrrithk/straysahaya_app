@@ -1,4 +1,4 @@
-import { View, Text, SafeAreaView, TouchableOpacity,TouchableWithoutFeedback } from 'react-native'
+import { View, Text, SafeAreaView, TouchableOpacity,TouchableWithoutFeedback, Linking } from 'react-native'
 import React from 'react'
 import * as Icons from 'react-native-feather'
 import { useNavigation } from '@react-navigation/native'
@@ -22,7 +22,7 @@ onPress={() => {navigation.goBack()}}
 </View>
 <View className="flex-col justify-center w-6/6 h-12 rounded-xl m-5" style={{backgroundColor:'#F5F9FA'}}>
     <TouchableWithoutFeedback
-    onPress={() => navigation.navigate('YourDetails')}
+    onPress={() => Linking.openURL('https://ashrrithk.notion.site/Terms-of-Service-905067bc6c0c4cf594d57b7a1e696bda?pvs=4')}
     >
   <View className="flex-row items-center justify-between">
         <Text className="text-lg font-semibold ml-5 ">Terms & Conditions</Text>
@@ -32,7 +32,7 @@ onPress={() => {navigation.goBack()}}
   </View>
   <View className="flex-col justify-center w-6/6 h-12 rounded-xl ml-5 mr-5 mt-2" style={{backgroundColor:'#F5F9FA'}}>
     <TouchableWithoutFeedback
-    onPress={() => navigation.navigate('YourDetails')}
+    onPress={() => Linking.openURL('https://ashrrithk.notion.site/Privacy-Policy-c3750efbca4e419987a58ad0ab826e30?pvs=4')}
     >
   <View className="flex-row items-center justify-between">
         <Text className="text-lg font-semibold ml-5 ">Privacy Policy</Text>
