@@ -13,7 +13,7 @@ export default function AdoptionCard(props) {
 
 
   return (
-      <View key={index} className="flex-row  rounded-xl m-2">
+      <View key={index} className="flex-row rounded-xl m-2">
         <TouchableOpacity
           className= "rounded-xl mb-3 mt-3 min-w-full"
           style={{backgroundColor: '#F5F9FA'}}

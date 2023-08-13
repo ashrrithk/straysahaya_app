@@ -70,18 +70,18 @@ export default function HelpDetailScreen() {
 
       <ScrollView horizontal={false} showsVerticalScrollIndicator={false} showsHorizontalScrollIndicator={false}>
         <View className="flex-col">
-        {/* <View className="items-center ml-5 mr-5 mt-5">
-        {item.category === 'Rescue' ? <Image className="rounded-lg" source={require('../assets/freepik/rescueBanner.jpg')} style={{ width: '100%', height:140}}/> :
-     item.category === 'Vet' ?   <Image className="rounded-lg" source={require('../assets/freepik/vetBanner.jpg')} style={{width: '100%', height: 140}} /> :
-     item.category === 'Animal Shelter' ?   <Image className="rounded-lg" source={require('../assets/freepik/shelterBanner.jpg')} style={{width: '100%', height: 140}} /> :
-     item.category === 'Animal Birth Control' ?   <Image className="rounded-lg" source={require('../assets/freepik/abcBanner.jpg')} style={{width: '100%', height: 140}} /> :
+        <View className="items-center ml-2 mr-2 mt-5" >
+        {item.category === 'Rescue' ? <Image className="rounded-lg" source={require('../assets/freepik/rescueBanner.jpg')} style={{ width: '100%', height:200}}/> :
+     item.category === 'Vet' ?   <Image className="rounded-lg" source={require('../assets/freepik/vetBanner.jpg')} style={{width: '100%', height: 200}} /> :
+     item.category === 'Animal Shelter' ?   <Image className="rounded-lg" source={require('../assets/freepik/shelterBanner.jpg')} style={{width: '100%', height: 200}} /> :
+     item.category === 'Animal Birth Control' ?   <Image className="rounded-lg" source={require('../assets/freepik/abcBanner.jpg')} style={{width: '100%', height: 200}} /> :
      null}
-        </View> */}
-        <View className=" mt-5 items-center">
-            <View className="border-gray-700 border-0.5 p-1 rounded-lg">
+        </View>
+        <View className=" mt-5 items-center" style={{position: 'relative'}}>
+            <View className="border-white border-1 p-2 rounded-lg mb-3" style={{backgroundColor:'white', position:'absolute', bottom:73}}>
             <Image source={{uri: urlFor(item?.image).url(),}} style={{width: 64, height: 63, borderRadius: 10}} />
             </View>
-            <Text className="font-medium text-xl mt-3">{item?.name}</Text>
+            <Text className="font-medium text-xl mt-5">{item?.name}</Text>
             <Text className="text-gray-500 mt-1">{item?.area}</Text>
             <Text className="text-gray-500 mt-1">{item?.timing}</Text>
            

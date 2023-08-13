@@ -6,6 +6,7 @@ import { setLocation } from '../redux/slice/homeSlice';
 import * as Location from 'expo-location';
 import { useNavigation } from '@react-navigation/native';
 import { I } from '@expo/html-elements';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function LocationModal() {
 const dispatch = useDispatch()
@@ -42,8 +43,9 @@ const [errorMsg, setErrorMsg] = useState(null);
     }
         };
   return (
+    <SafeAreaView style={{backgroundColor:'white'}} className="h-full">
     <View className="h-1/2" style={{flex: 1, maxHeight: 200}}>
-      <View className="items-center mt-5 h-1/2">
+      <View className="items-center mt-3 h-1/2">
       <View className="flex-row items-center mt-2">
         <TouchableOpacity className="pl-4"
         onPress={() => {navigator.goBack()}}
@@ -63,5 +65,6 @@ const [errorMsg, setErrorMsg] = useState(null);
   </TouchableOpacity>
 </View>
     </View>
+    </SafeAreaView>
   )
 }
