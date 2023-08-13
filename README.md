@@ -8,11 +8,7 @@
 
 [https://youtu.be/5fcfDbIN2TQ](https://youtu.be/5fcfDbIN2TQ)
 
-<h2>Project Screenshots:</h2>
 
-<img src="" alt="project-screenshot" width="400" height="400/">
-
-  
   
 <h2>🧐 Features</h2>
 
