@@ -168,3 +168,5 @@ docs/pages/versions/*/react-native/*.diff
 
 *.aab
 dist
+google-services.json
+```
